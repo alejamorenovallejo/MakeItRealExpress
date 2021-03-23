@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
-/*let value;*/
+let value;
 
 app.get('/', (req, res) => {
 
   
-  /*if (req.query.nombre==='') {
-    value='desconocido'
+  if (req.query.nombre==='') {
+    value='undefined'
   }else {
     value=req.query.nombre
-  }*/
-  res.send('<h1>Hola ' +  req.query.nombre  +'!</h1>');
+  }
+  res.send('<h1>Hola ' +  value  +'!</h1>');
   
 });
 

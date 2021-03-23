@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   }else {
     value=req.query.nombre
   }
-  res.send('<h1>Hola  ' +  value  +'!</h1>');
+  res.send('<h1>Hola ' +  value  +'!</h1>');
   
 });
 

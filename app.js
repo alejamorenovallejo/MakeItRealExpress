@@ -1,15 +1,8 @@
 const express = require('express');
 const app = express();
-let value;
 
 app.get('/', (req, res) => {
-
-  
-  if (req.query.nombre==='') {
-    value='undefined'
-  }else {
-    value=req.query.nombre
-  }
+  const value =req.query.nombre ==='' ? 'undefined' : req.query.nombre; 
   res.send('<h1>Hola ' +  value  +'!</h1>');
   
 });

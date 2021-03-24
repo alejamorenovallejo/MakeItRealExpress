@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  const value =req.query.nombre ==='' ? 'desconocido' : req.query.nombre; 
+  const value = req.query.nombre || 'desconocido';   
   res.send('<h1>Hola ' +  value  +'!</h1>');
   
 });

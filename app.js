@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', 'views');
+
 /*app.get('/', (req, res) => {
   const value = req.query.nombre || 'desconocido';   
   res.send('<h1>Hola ' +  value  +'!</h1>');
@@ -14,7 +17,7 @@ const app = express();
   
 });*/
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
 
   let value ='';
   for(i=1;i<=50;i++) {
@@ -26,6 +29,16 @@ app.get('/', (req, res) => {
       }
   }
   res.send(value);
+});*/
+
+app.get('/', (req, res) => {
+
+  let array =[];
+  for(i=1;i<=50;i++) {
+    array.push(`${i} Soy ${(i % 2 === 0 ? "Par" : "Impar")}!`);
+  }
+  res.render('index', { title: "Pares e Impares", array: array });
+
 });
 
 app.listen(3000, () => console.log('Listening on port 3000!'));

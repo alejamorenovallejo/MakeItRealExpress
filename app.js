@@ -3,6 +3,8 @@ const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', 'views');
+app.use(express.urlencoded());
+
 
 /*app.get('/', (req, res) => {
   const value = req.query.nombre || 'desconocido';   
@@ -31,7 +33,7 @@ app.set('views', 'views');
   res.send(value);
 });*/
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
 
   let array =[];
   for(i=1;i<=50;i++) {
@@ -39,6 +41,14 @@ app.get('/', (req, res) => {
   }
   res.render('index', { title: "Pares e Impares", array: array });
 
+});*/
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.post('/hello', (req, res) => {
+  res.send("Hola " + req.body.name);
 });
 
 app.listen(3000, () => console.log('Listening on port 3000!'));

@@ -1,6 +1,9 @@
-html
-  head
-    title= title
-  body
-   each value in array
-      p= value
+doctype html
+head
+  title Sal&uacute;dame 3
+  script(type='text/javascript').
+#container.col
+  form(action='/hello' method='post')
+    label(for='name')
+      input#name(type='text' name='name')
+      button(type='submit') Enviar

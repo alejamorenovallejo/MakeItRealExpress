@@ -57,7 +57,9 @@ app.post('/hello', (req, res) => {
 
 
 app.get('/', (req, res) => {
-  res.send(req.useragent.browser);
+  //res.send(req.header('User-Agent'));
+  //res.send(req.useragent.browser);
+  res.send('<h1>' +  req.useragent.browser +'</h1>' )
 });
 
 

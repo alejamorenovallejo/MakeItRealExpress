@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
+const useragent = require('express-useragent');
+
 
 app.set('view engine', 'pug');
 app.set('views', 'views');
-app.use(express.urlencoded());
+app.use(useragent.express());
+
+//app.use(express.urlencoded());
 
 
 /*app.get('/', (req, res) => {
@@ -43,12 +47,18 @@ app.use(express.urlencoded());
 
 });*/
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   res.render('index');
 });
 
 app.post('/hello', (req, res) => {
   res.send('<h1>Hola ' +  req.body.name  +'!</h1>'  );
+});*/
+
+
+app.get('/', (req, res) => {
+  res.send(req.useragent.browser);
 });
+
 
 app.listen(3000, () => console.log('Listening on port 3000!'));

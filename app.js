@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-const useragent = require('express-useragent');
 
-app.use(useragent.express());
 
 app.get('/', (req, res) => {
-  res.send('<h1>' +  req.useragent.browser  +'</h1>' )
+  //res.send('<h1>' +  req +'</h1>' )
+  res.send(req.header('user-agent'))
+
+  
 });
 
 

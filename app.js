@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/mongo-1', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/test', { useNewUrlParser: true });
 mongoose.connection.on("error", function(e) { console.error(e); });
 
 
@@ -22,16 +22,5 @@ app.get('/', (req, res) => {
   res.send('<h1>El visitante fue almacenado con éxito</h1>');
   
 });
-
-
-
-/*app.get('/', (req, res) => {
-  res.send(req.header('user-agent'))
-
-  
-});*/
-
-
-
 
 app.listen(3000, () => console.log('Listening on port 3000!'));

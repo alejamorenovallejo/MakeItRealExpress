@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/mongo-1', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/test', { useNewUrlParser: true });
 mongoose.connection.on("error", function(e) { console.error(e); });
 
 app.set('view engine', 'pug');
@@ -20,7 +20,7 @@ const Visitor = mongoose.model("Visitor", schema);
 app.get('/', (req, res) => {
   const value = req.query.name
   
-  Visitor.find({}, function(err, visitors) {
+  Visitor.find({name : value}, function(err, visitors) {
       if (err) return console.error(err);
       if(visitors.length > 0) {
       count = visitors[0].count+1
@@ -33,15 +33,9 @@ app.get('/', (req, res) => {
         });
       }
 
-      Visitor.find({}, function(err, visitors) {
-        res.render("index", {
-          visitors: visitors
-        });
-      
+      res.render("index", {
+        visitors: visitors
       });
-
     });
 });
-
-
 app.listen(3000, () => console.log('Listening on port 3000!'));

@@ -19,23 +19,25 @@ const Visitor = mongoose.model("Visitor", schema);
 /*Visitantes recurrentes*/
 app.get('/', (req, res) => {
   const value = req.query.name
-  
-  Visitor.find({name : value}, function(err, visitors) {
-      if (err) return console.error(err);
-      if(visitors.length > 0) {
-      count = visitors[0].count+1
-        Visitor.updateOne({ count: count }, function(err) {
-          if (err) return console.error(err);
-        });
-      }else {
-        Visitor.create({ name: (value ? value: 'Anonimo'),  count: 1}, function(err) {
-          if (err) return console.error(err);
-        });
-      }
 
-      res.render("index", {
-        visitors: visitors
+  if (!value) {
+      Visitor.create({ name: (value ? value: 'Anonimo'),  count: 1}, function(err) {
+        if (err) return console.error(err);
       });
+  }else {
+      Visitor.find({ name: value }, function(err, visitors) {
+          if (err) return console.error(err);
+          count = visitors[0].count+1
+          Visitor.updateOne({ count: count }, function(err) {
+              if (err) return console.error(err);
+          });
+      });
+  }
+
+  Visitor.find({}, function(err, visitors) {
+    res.render("index", {
+      visitors: visitors
     });
+  });
 });
 app.listen(3000, () => console.log('Listening on port 3000!'));

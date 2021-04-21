@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
       }
 
       Visitor.find({}, function(err, visitors) {
-      var templ='<table border=2><thead><tr><th>Id</th><th>Name</th><th>Count</th></tr></thead> <tbody>'
+      var templ='<table><thead><tr><th>Id</th><th>Name</th><th>Visits</th></tr></thead><tbody>'
 
         visitors.forEach(element => 
           templ +=  '<tr><td>'+ element._id + '</td><td>' + element.name + '</td><td>' + element.count + '</td></tr>'

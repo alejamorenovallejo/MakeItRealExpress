@@ -1,9 +1,17 @@
 doctype html
 head
-  title Sal&uacute;dame 3
-  script(type='text/javascript').
-#container.col
-  form(action='/hello' method='post')
-    label(for='name')
-      input#name(type='text' name='name')
-      button(type='submit') Enviar
+  title Visitantes Recurrentes
+  script(type='text/javascript')
+body
+    table
+      tr
+        th Id
+        th Name
+        th Visits
+
+      each visit in visitors
+        tr
+          td= visit._id
+          td= visit.name
+          td= visit.count
+        

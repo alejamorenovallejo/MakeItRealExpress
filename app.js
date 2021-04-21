@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/mongo-1', { useNewUrlParser: true });
 mongoose.connection.on("error", function(e) { console.error(e); });
 
+app.set('view engine', 'pug');
+app.set('views', 'views');
 
 const schema = mongoose.Schema({
   name : String,
@@ -14,21 +16,11 @@ const schema = mongoose.Schema({
 // definimos el modelo
 const Visitor = mongoose.model("Visitor", schema);
 
-/*app.get('/', (req, res) => {
-  const value = req.query.name || 'Anónimo';  
-  Visitor.create({ name: value,  count: 1}, function(err) {
-    if (err) return console.error(err);
-  });
-  res.send('<h1>El visitante fue almacenado con éxito</h1>');
-  
-});*/
-
-
 /*Visitantes recurrentes*/
 app.get('/', (req, res) => {
   const value = req.query.name
   
-  Visitor.find({name : value}, function(err, visitors) {
+  Visitor.find({}, function(err, visitors) {
       if (err) return console.error(err);
       if(visitors.length > 0) {
       count = visitors[0].count+1
@@ -42,15 +34,14 @@ app.get('/', (req, res) => {
       }
 
       Visitor.find({}, function(err, visitors) {
-      var templ='<table><tr><th>Id</th><th>Name</th><th>Visits</th></tr>'
-
-        visitors.forEach(element => 
-          templ +=  '<tr><td>'+ element._id + '</td><td>' + element.name + '</td><td>' + element.count + '</td></tr>'
-        )
-        templ +='</table>'
-        res.send(templ)
+        res.render("index", {
+          visitors: visitors
+        });
       
       });
+
     });
 });
+
+
 app.listen(3000, () => console.log('Listening on port 3000!'));

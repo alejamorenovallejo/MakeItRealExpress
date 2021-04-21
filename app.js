@@ -42,12 +42,12 @@ app.get('/', (req, res) => {
       }
 
       Visitor.find({}, function(err, visitors) {
-      var templ='<table><thead><tr><th>Id</th><th>Name</th><th>Visits</th></tr></thead><tbody>'
+      var templ='<table><tr><th>Id</th><th>Name</th><th>Visits</th></tr>'
 
         visitors.forEach(element => 
           templ +=  '<tr><td>'+ element._id + '</td><td>' + element.name + '</td><td>' + element.count + '</td></tr>'
         )
-        templ +='</tbody></table>'
+        templ +='</table>'
         res.send(templ)
       
       });

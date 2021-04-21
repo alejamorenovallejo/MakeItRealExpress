@@ -1,17 +1,18 @@
-doctype html
-head
-  title Visitantes Recurrentes
-  script(type='text/javascript')
-body
+  
+html
+  head
+    title= "Mongo"
+  body
     table
-      tr
-        th Id
-        th Name
-        th Visits
-
-      each visit in visitors
+      thead
         tr
-          td= visit._id
-          td= visit.name
-          td= visit.count
-        
+          th Id
+          th Name
+          th Visits
+      tfoot
+      tbody
+        each visitor in visitors
+          tr
+            td= visitor.id
+            td= visitor.name
+            td= visitor.count

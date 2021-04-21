@@ -20,13 +20,13 @@ const Visitor = mongoose.model("Visitor", schema);
   app.get('/', async (req, res) => {
     try {
       const visitorExists = await Visitor.findOne({ name: req.query.name });
-      if (visitorExists && visitorExists.name !== 'Anonimo') {
+      if (visitorExists && visitorExists.name !== 'Anónimo') {
         await Visitor.findById(visitorExists.id, (err, visitor) => {
           visitor.count += 1;
           visitor.save();
         });
       } else {
-        await Visitor.create({ name: req.query.name || 'Anonimo' });
+        await Visitor.create({ name: req.query.name || 'Anónimo' });
       }
       const visitors = await Visitor.find();
       res.render('index', {

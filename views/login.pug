@@ -1,0 +1,19 @@
+  
+html
+  head
+    title= "Autenticame"
+  body
+form(action='/login' method='post')
+  label(for='email') Email
+  br
+  input#email(type='email' name='email')
+  br
+  label(for='password') Password
+  br
+  input#password(type='password' name='password')
+  br
+  br
+  button(type='submit') Ingresar
+  br
+  br
+  a(href='/register' ) Registrarse

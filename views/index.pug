@@ -3,16 +3,17 @@ html
   head
     title= "Mongo"
   body
-    table
+    a(href='/register' ) Registrarse
+    br
+    br
+    table(border='1px')
       thead
         tr
-          th Id
           th Name
-          th Visits
+          th Email
       tfoot
       tbody
-        each visitor in visitors
+        each user in users
           tr
-            td= visitor.id
-            td= visitor.name
-            td= visitor.count
+            td= user.name
+            td= user.email

@@ -20,97 +20,19 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost:27017/mongo-1',
 mongoose.connection.on("error", function(e) { console.error(e); });
 
 //definimos el Schema
-const userSchema = mongoose.Schema({
+const productosSchema = mongoose.Schema({
   name:String,
-  email:String,
-  password:String
+  price:Number,
 });
 // definimos el modelo
-const User = mongoose.model("User", userSchema);
+const Products = mongoose.model("Products", productosSchema);
 
-/**Autenticacion**/
-app.get('/', (req, res) => {
-  res.redirect('/login');
+
+
+/**Devolviendo JSON**/
+app.get('/products', async (req, res) => {
+    const product = await Products.find();
+    res.json(product)
 });
-
-app.get('/login', (req, res) => {
-  res.render('login')
-});
-
-app.post('/login', async (req,res)=>{
-
-  let validation=false;
-
-  try{
-      const usersExist= await User.findOne({'email':req.body.email});
-      if(usersExist){
-          validation=await bcrypt.compare(req.body.password, usersExist.password);
-      }
-
-      if(validation){
-          req.session.user= usersExist.id;
-          const usersExists= await User.find();
-          res.render('users', {"userList":usersExists});
-      }else{
-          res.render('login', {"error":true});
-      }
-
-  }catch(err){
-      console.log(err);
-  }
-  
-});
-
-app.get('/logout', (req,res)=>{
-  res.clearCookie('user');
-  req.session = null;
-  res.redirect('/login');
-});
-
-
-app.get('/register',(req, res) => {
-  res.render('register')
-});
-
-app.post('/register', async (req,res) => {
-try {
-  const hash = await bcrypt.hash(req.body.password, 10);
-  await User.create({name:req.body.name, email:req.body.email, password:hash});
-  res.redirect('/');
-  
-} catch (error) {
-  console.error(error);
-  res.status(500);
-}
-});
-
-/** Formulario Registro
-app.get('/', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.render('index', {
-      users : users,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500);
-  }
-});
-
-app.get('/register',(req, res) => {
-    res.render('register')
-});
-
-app.post('/register', async (req,res) => {
-  try {
-    const hash = await bcrypt.hash(req.body.password, 10);
-    await User.create({name:req.body.name, email:req.body.email, password:hash});
-    res.redirect('/');
-    
-  } catch (error) {
-    console.error(error);
-    res.status(500);
-  }
-});**/
 
 app.listen(3000, () => console.log('Listening on port 3000!'));
